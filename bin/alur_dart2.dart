@@ -13,7 +13,9 @@ void main() {
   } else {
     isMadura = false;
   }
- mostrarMadura('Uva', 40, cor: 'roxa');
+  mostrarMadura('Uva', 40, cor: 'roxa');
+  int quantosDias = funcQuantosDiasMadura(diasDeCollheita);
+  print(quantosDias);
 }
 
 bool funcIsMadura(int dias) {
@@ -23,12 +25,6 @@ bool funcIsMadura(int dias) {
     return false;
   }
 }
-
-// Posicionais obrigatórios
-// Nomeados Opcionais
-// Parâmetro "Padrão"
-// Modificador "required"
-
 void mostrarMadura(String nome, int dias, {String? cor}) {
   if (dias >= 30) {
     print('A $nome está madura.');
@@ -38,4 +34,10 @@ void mostrarMadura(String nome, int dias, {String? cor}) {
   if(cor != null) {
     print('a $nome é $cor');
   }
+}
+
+int funcQuantosDiasMadura(int dias) {
+  int diasParaMadura = 30;
+  int quantosDiasFaltam = dias -  diasParaMadura;
+  return quantosDiasFaltam;
 }
