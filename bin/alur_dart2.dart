@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:alur_dart2/alur_dart2.dart' as alur_dart2;
 
 void main() {
@@ -8,14 +10,36 @@ void main() {
   int diasDeCollheita = 40;
   bool isMadura = funcIsMadura(diasDeCollheita);
 
-  if (diasDeCollheita >= 30) {
-    isMadura = true;
-  } else {
-    isMadura = false;
+  Fruta fruta01 = Fruta(nome, peso, cor, sabor, diasDeCollheita);
+  print(fruta01);
+  Fruta fruta02 = Fruta('uva', 40, 'Roxa', 'Doce', 20);
+  print(fruta02);
+  // List<dynamic> fruta01 = ['Laranja', 100.2, 'verde'];
+  // List<dynamic> fruta02 = ['uva', 100.2, 'roxo'];
+
+//   if (diasDeCollheita >= 30) {
+//     isMadura = true;
+//   } else {
+//     isMadura = false;
+//   }
+//   mostrarMadura('Uva', 40, cor: 'roxa');
+//   int quantosDias = funcQuantosDiasMadura(diasDeCollheita);
+//   print(quantosDias);
+}
+class Fruta {
+  String nome;
+  double peso;
+  String cor;
+  String sabor;
+  int diasDeCollheita;
+  bool? isMadura;
+
+  Fruta(this.nome, this.peso, this.cor, this.sabor, this.diasDeCollheita, {this.isMadura});
+
+  estaMadura(int diasParaMadura){
+    isMadura = diasDeCollheita >= diasParaMadura;
+    print("A sua $nome foi colhida a $diasDeCollheita dias, e precisa de $diasParaMadura dias para amadurecer");
   }
-  mostrarMadura('Uva', 40, cor: 'roxa');
-  int quantosDias = funcQuantosDiasMadura(diasDeCollheita);
-  print(quantosDias);
 }
 
 bool funcIsMadura(int dias) {
@@ -35,7 +59,6 @@ void mostrarMadura(String nome, int dias, {String? cor}) {
     print('a $nome é $cor');
   }
 }
-
 int funcQuantosDiasMadura(int dias) {
   int diasParaMadura = 30;
   int quantosDiasFaltam = dias -  diasParaMadura;
