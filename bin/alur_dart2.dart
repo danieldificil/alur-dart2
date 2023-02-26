@@ -7,10 +7,12 @@ void main() {
   Nozes macadamia = Nozes("Macadâmia", 2, "branco amarelado", "Doce", 20, 30);
   Citricas limao = Citricas("Limão", 12, "verde", "Azedo", 20, 80);
 
-  mandioca.printAlimento();
-  banana.printAlimento();
-  macadamia.printAlimento();
-  limao.printAlimento();
+  // mandioca.printAlimento();
+  // banana.printAlimento();
+  // macadamia.printAlimento();
+  // limao.printAlimento();
+  banana.assar();
+  macadamia.fazerMassa();
 
 }
 
@@ -31,7 +33,7 @@ int funcQuantosDiasMadura(int dias) {
   return quantosDiasFaltam;
 }
 
-class Fruta extends Alimento {
+class Fruta extends Alimento implements Bolo {
   String sabor;
   int diasDeCollheita;
   bool? isMadura;
@@ -48,6 +50,21 @@ class Fruta extends Alimento {
   void fazerSuco(){
     print("Você fez um ótimo suco de $nome");
   }
+
+  @override
+  void assar() {
+    print("LEVAR AO FORNO 20 MIN");
+  }
+
+  @override
+  void fazerMassa() {
+    print("MISTURAR A FRUTA COM A MASSA...");
+  }
+
+  @override
+  void separIgredientes() {
+    print("PEGAR A FRUTA");
+  }
 }
 
 class Alimento {
@@ -62,7 +79,7 @@ class Alimento {
   }
 }
 
-class Legumes extends Alimento {
+class Legumes extends Alimento implements Bolo {
   bool isPrecisaCozinhar;
 
   Legumes(String nome, double peso, String cor, this.isPrecisaCozinhar)
@@ -74,6 +91,21 @@ class Legumes extends Alimento {
     } else {
       print("Não precisa cozinhar");
     }
+  }
+
+  @override
+  void assar() {
+    // TODO: implement assar
+  }
+
+  @override
+  void fazerMassa() {
+    // TODO: implement fazerMassa
+  }
+
+  @override
+  void separIgredientes() {
+    // TODO: implement separIgredientes
   }
 }
 
@@ -92,9 +124,38 @@ class Citricas extends Fruta{
   }
 }
 
-class Nozes extends Fruta {
+class Nozes extends Fruta implements Bolo {
   double porcentagemOleoNatural;
 
       Nozes(String nome, double peso, String cor, String sabor, int diasDeColheita, this.porcentagemOleoNatural)
       : super(nome, peso, cor, sabor, diasDeColheita);
+
+      @override
+      void fazerMassa() {
+        print("Tirar a casca!");
+        super.fazerMassa();
+      }
 }
+
+abstract class Bolo{
+  //separar igredientes
+  void separIgredientes();
+  //fazer a massa
+  void fazerMassa();
+  // assar
+  void assar();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
