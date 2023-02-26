@@ -1,66 +1,100 @@
 import 'dart:math';
-
 import 'package:alur_dart2/alur_dart2.dart' as alur_dart2;
 
 void main() {
-  String nome = 'Laranja';
-  double peso = 100.2;
-  String cor = 'Verde e amarela';
-  String sabor = 'Doce e cítrica';
-  int diasDeCollheita = 40;
-  bool isMadura = funcIsMadura(diasDeCollheita);
+  Legumes mandioca = Legumes("Mandioca", 77.77, "marrom", true);
+  Fruta banana = Fruta("Banana", 100, "amarela", "Doce", 12);
+  Nozes macadamia = Nozes("Macadâmia", 2, "branco amarelado", "Doce", 20, 30);
+  Citricas limao = Citricas("Limão", 12, "verde", "Azedo", 20, 80);
 
-  Fruta fruta01 = Fruta(nome, peso, cor, sabor, diasDeCollheita);
-  print(fruta01);
-  Fruta fruta02 = Fruta('uva', 40, 'Roxa', 'Doce', 20);
-  print(fruta02);
-  // List<dynamic> fruta01 = ['Laranja', 100.2, 'verde'];
-  // List<dynamic> fruta02 = ['uva', 100.2, 'roxo'];
+  mandioca.printAlimento();
+  banana.printAlimento();
+  macadamia.printAlimento();
+  limao.printAlimento();
 
-//   if (diasDeCollheita >= 30) {
-//     isMadura = true;
-//   } else {
-//     isMadura = false;
-//   }
-//   mostrarMadura('Uva', 40, cor: 'roxa');
-//   int quantosDias = funcQuantosDiasMadura(diasDeCollheita);
-//   print(quantosDias);
-}
-class Fruta {
-  String nome;
-  double peso;
-  String cor;
-  String sabor;
-  int diasDeCollheita;
-  bool? isMadura;
-
-  Fruta(this.nome, this.peso, this.cor, this.sabor, this.diasDeCollheita, {this.isMadura});
-
-  estaMadura(int diasParaMadura){
-    isMadura = diasDeCollheita >= diasParaMadura;
-    print("A sua $nome foi colhida a $diasDeCollheita dias, e precisa de $diasParaMadura dias para amadurecer");
-  }
 }
 
-bool funcIsMadura(int dias) {
-  if (dias >= 30) {
-    return true;
-  } else {
-    return false;
-  }
-}
 void mostrarMadura(String nome, int dias, {String? cor}) {
   if (dias >= 30) {
     print('A $nome está madura.');
   } else {
     print('A $nome não está madura.');
   }
-  if(cor != null) {
+  if (cor != null) {
     print('a $nome é $cor');
   }
 }
+
 int funcQuantosDiasMadura(int dias) {
   int diasParaMadura = 30;
-  int quantosDiasFaltam = dias -  diasParaMadura;
+  int quantosDiasFaltam = dias - diasParaMadura;
   return quantosDiasFaltam;
+}
+
+class Fruta extends Alimento {
+  String sabor;
+  int diasDeCollheita;
+  bool? isMadura;
+
+  Fruta(String nome, double peso, String cor, this.sabor, this.diasDeCollheita,
+      {this.isMadura}) : super(nome, peso, cor);
+
+  void estaMadura(int diasParaMadura) {
+    isMadura = diasDeCollheita >= diasParaMadura;
+    print(
+        "A sua $nome foi colhida a $diasDeCollheita dias, e precisa de $diasParaMadura dias para amadurecer"
+            "Está madura? $isMadura");
+  }
+  void fazerSuco(){
+    print("Você fez um ótimo suco de $nome");
+  }
+}
+
+class Alimento {
+  String nome;
+  double peso;
+  String cor;
+
+  Alimento(this.nome, this.peso, this.cor);
+
+  void printAlimento() {
+    print("Este(a) $nome pesa $peso gramas e é $cor");
+  }
+}
+
+class Legumes extends Alimento {
+  bool isPrecisaCozinhar;
+
+  Legumes(String nome, double peso, String cor, this.isPrecisaCozinhar)
+      : super(nome, peso, cor);
+
+  void cozinhar() {
+    if (isPrecisaCozinhar) {
+      print("Pronto, o $nome est'a cozinhando");
+    } else {
+      print("Não precisa cozinhar");
+    }
+  }
+}
+
+class Citricas extends Fruta{
+  double nivelAzedo;
+
+  Citricas(String nome, double peso, String cor, String sabor, int diasDeColheita, this.nivelAzedo)
+      : super(nome, peso, cor, sabor, diasDeColheita);
+
+  void existeRefri(bool, existe){
+    if (existe) {
+      print("Existe Refrigerante de $nome");
+    } else {
+      print("Não existe refrigerante de $nome");
+    }
+  }
+}
+
+class Nozes extends Fruta {
+  double porcentagemOleoNatural;
+
+      Nozes(String nome, double peso, String cor, String sabor, int diasDeColheita, this.porcentagemOleoNatural)
+      : super(nome, peso, cor, sabor, diasDeColheita);
 }
